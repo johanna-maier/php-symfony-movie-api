@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Movies Search Page {{ language_key }}
+{% endblock %}
+
+{% block body %}
+  <h1>Movie Search Page</h1>
+{{ form_start(form, { 'action': path('movies-search', {'search': form.search.vars.value}), 'method': 'GET' }) }}
+    {{ form_row(form.search) }}
+    <button type="submit">Search</button>
+  {{ form_end(form) }}
+{% endblock %}

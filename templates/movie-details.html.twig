@@ -1,0 +1,9 @@
+{% if id %}
+  <h1>Details for movie: {{movieDetails.title}} (ID: {{movieDetails.id}})</h1>
+  <p>{{movieDetails.description}}</p>
+  <embed width="420" height="315" src="https://www.youtube.com/embed/{{movieDetails.videoKey}}">
+
+  <br>
+{% else %}
+  <p>Woops, no id is selected title set.</p>
+{% endif %}

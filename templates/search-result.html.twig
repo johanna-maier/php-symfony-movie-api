@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Movie Results {{ language_key }}
+{% endblock %}
+
+{% block body %}
+  <h1>Your Movie Search Results for: {{ query }}</h1>
+  <ul>
+    {% for id, title in titles %}
+      <li><a href="/movies/{{ id }}">{{ title }}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+
+{% endblock %}
