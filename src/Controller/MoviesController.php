@@ -23,7 +23,7 @@ class MoviesController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $query = $form->get('search')->getData();
       dump($query);
-      return $this->redirectToRoute('movies-query', $parameters = [$query], $status = 301);
+      return $this->redirectToRoute('movies-query', ['query' => $query], $status = 301);
     }
 
     return $this->render('index.html.twig', [
@@ -58,6 +58,9 @@ class MoviesController extends AbstractController
         $titles[$movie['id']] = $movie['title'];
       }
     }
+
+    // Return JSON response instead of template
+    // Call react instead to render it
 
     return $this->render('search-result.html.twig', array(
       'response' => $response,
