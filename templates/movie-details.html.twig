@@ -1,28 +1,51 @@
-{% if id %}
-  <h1>Details for movie: {{movieDetails.title}} (ID: {{movieDetails.id}})</h1>
-  <p>{{movieDetails.description}}</p>
-  <embed width="420" height="315" src="https://www.youtube.com/embed/{{movieDetails.videoKey}}">
-  <br>
-   <div id="app"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
 
-    <script type="text/javascript">
-      // Select the div element with 'app' id
-      const app = document.getElementById('app');
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Movie Details Page
+    </title>
+  </head>
+  <body>
+    <h2>
+      Input from JavaScript file:
+    </h2>
+    <div id="app"
+      data-movie-details="{{ movieJson|json_encode|e('html_attr') }}"></div>
 
-      // Create a new H1 element
-      const header = document.createElement('h1');
+    <br />
+    <h2>
+      Info from Twig template. Info from PHP array passed to via Controller:
+    </h2>
+    {% if id %}
+      <h3>
+        Details for movie: {{ movieDetails.title }} (ID: {{ movieDetails.id }})
+      </h3>
+      <p>
+        {{ movieDetails.description }}
+      </p>
 
-      // Create a new text node for the H1 element
-      const headerContent = document.createTextNode(
-        'Develop. Preview. Ship. 🚀',
-      );
+      {% if movieDetails.videoKey is defined %}
+        <embed width="420"
+          height="315"
+          src="https://www.youtube.com/embed/{{ movieDetails.videoKey }}" />
+      {% else %}
+        <p>
+          Sorry! This movie does not have a video in the database.
+        </p>
+      {% endif %}
+    {% else %}
+      <p>
+        Woops, no id is selected title set.
+      </p>
+    {% endif %}
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-      // Append the text to the H1 element
-      header.appendChild(headerContent);
-
-      // Place the H1 element inside the div
-      app.appendChild(header);
-    </script>
-{% else %}
-  <p>Woops, no id is selected title set.</p>
-{% endif %}
+    <script type="text/jsx" src="{{ asset('js/first-react.js') }}"></script>
+  </body>
+</html>
