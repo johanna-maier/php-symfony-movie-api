@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
+
+use App\Helper\MoviesHelper;
 
 use App\Form\MovieSearchType;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,8 +14,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+
 class MoviesController extends AbstractController
 {
+  private MoviesHelper $moviesHelper;
+
+  public function __construct(MoviesHelper $moviesHelper)
+  {
+    $this->moviesHelper = $moviesHelper;
+  }
+
 
   #[Route('/movies-search', name: 'movies-search')]
   public function index(Request $request, $search = null)
@@ -34,39 +46,13 @@ class MoviesController extends AbstractController
   #[Route('/movies-search/{query}', name: 'movies-query')]
   public function query($query): Response
   {
-    $apiKey = $_ENV['MOVIE_API'];
-    $url = 'https://api.themoviedb.org/3/search/movie?query=' . $query . '&api_key=' . $apiKey;
 
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-      CURLOPT_URL => $url,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_RETURNTRANSFER => true,
-    ]);
-
-    $rawResponse = curl_exec($curl);
-    $info = curl_getinfo($curl);
-    curl_close($curl);
-
-    if ($info['http_code'] === 200) {
-      $response = json_decode($rawResponse, true);
-      $movies = $response;
-
-      $titles = array();
-
-      foreach ($movies['results'] as $movie) {
-        $titles[$movie['id']] = $movie['title'];
-      }
-    }
-
+    $titles = $this->moviesHelper->getMoviesApi($query);
     // Return JSON response instead of template
     // Call react instead to render it
 
     return $this->render('search-result.html.twig', array(
-      'response' => $response,
-      'movie' => $movies,
       'query' => $query,
-      'url' => $url,
       'titles' => $titles
     ));
   }
