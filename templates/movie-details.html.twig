@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
-
+    {# <link rel="stylesheet" href="{{ asset('css/styles.css') }}" /> #}
+    {# <link rel="stylesheet" href="{{ asset('build/app.css') }}" /> #}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
@@ -10,12 +12,12 @@
     </title>
   </head>
   <body>
-    <h2>
+    {# <h2>
       Input from JavaScript file:
-    </h2>
+    </h2> #}
     <div id="app"
       data-movie-details="{{ movieJson|json_encode|e('html_attr') }}"></div>
-
+    {#
     <br />
     <h2>
       Info from Twig template. Info from PHP array passed to via Controller:
@@ -41,11 +43,12 @@
       <p>
         Woops, no id is selected title set.
       </p>
-    {% endif %}
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    {% endif %} #}
+    {# <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> #}
+    {# <script src="{{ asset('build/app.js') }}"></script> #}
 
-    <script type="text/jsx" src="{{ asset('js/first-react.js') }}"></script>
+    {# <script type="text/jsx" src="{{ asset('js/first-react.js') }}"></script> #}
   </body>
 </html>

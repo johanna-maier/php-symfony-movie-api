@@ -6,4 +6,9 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import "../css/app.scss";
+
+import getNiceMessage from "./get_message";
+import MoviesDetailPage from "./MoviesDetailPage";
+
+console.log(getNiceMessage(5));

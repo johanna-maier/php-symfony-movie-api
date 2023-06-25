@@ -1,3 +1,8 @@
+import ReactDOM from "react-dom";
+import React from "react";
+import Header from "./Header";
+import MovieDetails from "./MovieDetails";
+
 // Select the div element with 'app' id
 const app = document.getElementById("app");
 const movieDetails = JSON.parse(app.dataset.movieDetails);
@@ -10,37 +15,15 @@ if (movieDetails.videos.results[0] === undefined) {
   youtubeKey = movieDetails.videos.results[0].key;
 }
 
-// Now returning h1 element as a component.
-function Header() {
-  return <h1>Movie DB Case 🚀</h1>;
-}
-
-// Option 1: pass props and use props.title
-// Or use object (props!) deconstructing when passing the params
-function MovieDetails({ title, description }) {
+export default function MoviesDetailPage() {
   return (
-    <div>
-      <title>{title}</title>
-      <p>{description}</p>
-
-      {youtubeKey ? (
-        <embed
-          width="420"
-          height="315"
-          src={`https://www.youtube.com/embed/${youtubeKey}`}
-        />
-      ) : (
-        <p>Sorry, there is no video for this movie available.</p>
-      )}
-    </div>
-  );
-}
-
-function MoviesDetailPage() {
-  return (
-    <div>
+    <div className="page-container">
       <Header />
-      <MovieDetails title={title} description={description} />
+      <MovieDetails
+        title={title}
+        description={description}
+        youtubeKey={youtubeKey}
+      />
     </div>
   );
 }

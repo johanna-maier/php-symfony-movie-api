@@ -1,0 +1,60 @@
+// CSS Reset
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// React Components
+
+.page-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.title {
+  font-size: 100px;
+}
+
+.movie-card {
+  display: flex;
+  margin: 100px;
+  border: 1px solid grey;
+
+  embed {
+    width: 420px;
+    height: 315px;
+  }
+}
