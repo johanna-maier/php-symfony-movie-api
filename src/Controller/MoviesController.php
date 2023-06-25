@@ -96,7 +96,8 @@ class MoviesController extends AbstractController
 
     return $this->render('movie-details.html.twig', [
       'id' => $id,
-      'movieDetails' => $details
+      'movieDetails' => $details,
+      'movieJson' => $response
     ]);
   }
 
