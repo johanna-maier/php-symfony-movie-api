@@ -5,6 +5,7 @@
     "@babel/preset-react": "^7.22.5",
     "@symfony/webpack-encore": "^4.0.0",
     "core-js": "^3.23.0",
+    "eslint": "^8.43.0",
     "prettier": "2.0.5",
     "prettier-plugin-twig-melody": "^0.4.6",
     "regenerator-runtime": "^0.13.9",
