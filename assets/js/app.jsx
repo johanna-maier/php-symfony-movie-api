@@ -6,9 +6,13 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import React from "react";
+import ReactDOM from "react-dom";
+
 import "../css/app.scss";
 
-import getNiceMessage from "./get_message";
-import MoviesDetailPage from "./MoviesDetailPage";
+import MoviesDetailPage from "./MoviesDetailPage.jsx";
 
-console.log(getNiceMessage(5));
+const app = document.getElementById("app");
+
+ReactDOM.render(<MoviesDetailPage />, app);

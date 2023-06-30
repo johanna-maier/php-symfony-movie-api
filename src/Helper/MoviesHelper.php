@@ -31,14 +31,26 @@ class MoviesHelper
 
     $response = $this->client->request('GET', $url);
     $parsedResponse = $response->toArray();
-    $movies = $parsedResponse;
+    // $movies = $parsedResponse;
 
-    $titles = array();
+    // $titles = array();
 
-    foreach ($movies['results'] as $movie) {
-      $titles[$movie['id']] = $movie['title'];
-    }
+    // foreach ($movies['results'] as $movie) {
+    //   $titles[$movie['id']] = $movie['title'];
+    // }
 
-    return $titles;
+    return $parsedResponse;
+  }
+
+  public function getMovieDetailsApi($id): array
+  {
+    $apiKey = $_ENV['MOVIE_API'];
+    $url = 'https://api.themoviedb.org/3/movie/' . $id . '?&append_to_response=videos&api_key=' . $apiKey;
+
+    $response = $this->client->request('GET', $url);
+    $parsedResponse = $response->toArray();
+
+
+    return $parsedResponse;
   }
 }

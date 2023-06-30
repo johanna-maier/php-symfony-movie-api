@@ -1,16 +1,18 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{ encore_entry_link_tags('app') }}
 
-{% block title %}
-  Movie Results {{ language_key }}
-{% endblock %}
-
-{% block body %}
-  <h1>Your Movie Search Results for: {{ query }}</h1>
-  <ul>
-    {% for id, title in titles %}
-      <li><a href="/movies/{{ id }}">{{ title }}</a></li>
-    {% endfor %}
-  </ul>
-  <br>
-
-{% endblock %}
+    <title>
+      Movie Search Results
+    </title>
+    {{ encore_entry_script_tags('movies-search-results') }}
+  </head>
+  <body>
+    <div id="movies-search-results"
+      data-movie-details="{{ movieJson|json_encode|e('html_attr') }}"></div>
+    <br />
+  </body>
+</html>

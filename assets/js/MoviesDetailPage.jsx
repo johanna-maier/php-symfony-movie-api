@@ -28,8 +28,6 @@ export default function MoviesDetailPage() {
   );
 }
 
-ReactDOM.render(<MoviesDetailPage />, app);
-
 // https://symfonycasts.com/screencast/reactjs/server-pass-props
 
 // Use React instead of direct manipulation with JS code below
