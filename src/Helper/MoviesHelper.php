@@ -4,16 +4,23 @@ declare(strict_types=1);
 
 namespace App\Helper;
 
-
+use Psr\Cache\CacheItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 
 class MoviesHelper
 {
   private HttpClientInterface $client;
-  public function __construct(HttpClientInterface $client)
-  {
+  private CacheInterface $cache;
+
+  public function __construct(
+    HttpClientInterface $client,
+    CacheInterface $cache
+
+  ) {
     $this->client = $client;
+    $this->cache = $cache;
   }
 
   /**
@@ -24,13 +31,21 @@ class MoviesHelper
    * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
    */
 
-  public function getMoviesApi($query): array
-  {
+  public function getMoviesApi(
+    $query
+  ): array {
     $apiKey = $_ENV['MOVIE_API'];
     $url = 'https://api.themoviedb.org/3/search/movie?query=' . $query . '&api_key=' . $apiKey;
 
-    $response = $this->client->request('GET', $url);
-    $parsedResponse = $response->toArray();
+    // first argument is possible cached data
+    // if it does not exist the data that should be feteched instead
+    $parsedResponse = $this->cache->get("{$query}_data", function (CacheItemInterface $cacheItem) use ($url, $query) {
+      $cacheItem->expiresAfter(3600);
+      $response = $this->client->request('GET', $url);
+      return $response->toArray();
+    });
+
+
     // $movies = $parsedResponse;
 
     // $titles = array();

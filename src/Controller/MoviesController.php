@@ -7,12 +7,14 @@ namespace App\Controller;
 use App\Helper\MoviesHelper;
 
 use App\Form\MovieSearchType;
+use Knp\Bundle\TimeBundle\DateTimeFormatter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 
 class MoviesController extends AbstractController
@@ -48,9 +50,12 @@ class MoviesController extends AbstractController
 
 
   #[Route('/movies/{id}', name: 'movie-details')]
-  public function details($id): Response
+  public function details(DateTimeFormatter $dateTimeFormatter, $id): Response
   {
     $response = $this->moviesHelper->getMovieDetailsApi($id);
+    $date = new \DateTime('now -1 day');
+
+
 
     // $curl = curl_init();
     // curl_setopt_array($curl, [
@@ -82,7 +87,8 @@ class MoviesController extends AbstractController
     // }
 
     return $this->render('movie-details.html.twig', [
-      'movieJson' => $response
+      'movieJson' => $response,
+      'dateFormatted' => $dateTimeFormatter->formatDiff($date)
     ]);
   }
 
